@@ -1,0 +1,52 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ 
+        }
+    </style>
+    <title>HomePage</title>
+   
+ </head>
+ <body>
+
+<h2>URL Shortener</h2>
+<!-- locals means which data are come from backend this local id are  come from POST route on handlegenerateurl -->
+ <% if (locals.id) { %>
+  <p>URL Generated : http://localhost:3000/url/<%= id %></p>
+ <% } %>
+<div> 
+<form method="POST" action="/url">
+<label>Enter Your Orignal URL</label>
+<input type="text" name="url" placeholder="http://example.com">
+<button type="submit"> Generate</button>
+</form>
+</div>
+<div>
+    <% if (locals.urls) { %>
+        <table> 
+        <thead>
+             <th>S.No</th>
+             <th>ShortId</th>
+             <th>Orignal URL</th>
+             <th>TotalClicks</th>
+        </thead>
+        <tbody> 
+            <% urls.forEach((url,index )=> { %>
+             <tr>
+                <td><%= index + 1 %></td>
+                <td><%= url.shortId %></td>
+                <td><%=url.redirectURL %></td>
+                <td><%=url.VisitHistory.length %></td>
+             </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <% } %>
+</div>
+ </body>
+ </html>
